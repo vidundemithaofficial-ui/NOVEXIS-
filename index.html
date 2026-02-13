@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nayani & Supun | The Wedding</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <!-- Google Fonts for Envelope -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+
+<body class="locked">
+
+    <!-- ENVELOPE OPENING SEQUENCE -->
+    <canvas id="dust"></canvas>
+
+    <div id="envelope-overlay" class="envelope-overlay">
+        <div class="wrapper">
+            <div class="envelope">
+                <div class="flap"></div>
+                <div class="body"></div>
+                <div class="seal">N&S</div>
+            </div>
+
+            <img src="envelop.png" id="custom-envelop" class="custom-envelop" alt="Invitation Envelope">
+
+            <div class="card">
+                <h1>You're Invited</h1>
+                <p>To celebrate the wedding of<br><strong>Nayani & Supun</strong><br>August 12th, 2026</p>
+            </div>
+        </div>
+        <p class="tap-hint">Tap the seal to open</p>
+    </div>
+
+    <!-- Soft Ambient Music -->
+    <audio id="music" loop>
+        <source
+            src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8b0b42e6f7.mp3?filename=romantic-ambient-piano-110624.mp3"
+            type="audio/mpeg">
+    </audio>
+
+    <!-- MAIN WEBSITE CONTENT -->
+    <div id="main-site" class="site-hidden">
+
+        <!-- Cinematic Grain Overlay -->
+        <div class="grain-overlay"></div>
+
+        <!-- Navigation -->
+        <header>
+            <div class="logo">N & S</div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </header>
+
+        <div class="nav-overlay" id="navOverlay">
+            <nav>
+                <a href="#hero" class="nav-link">Home</a>
+                <a href="#story" class="nav-link">Our Story</a>
+                <a href="#events" class="nav-link">Events</a>
+                <a href="#gallery" class="nav-link">Memories</a>
+                <a href="#rsvp" class="nav-link">RSVP</a>
+            </nav>
+        </div>
+
+        <main>
+            <!-- Section 1: Hero (Parallax) -->
+            <section class="hero full-screen" id="hero">
+                <div class="hero-bg"></div>
+                <div class="hero-content" data-speed="0.5">
+                    <p class="overline reveal">We Are Getting Married</p>
+                    <h1 class="reveal delay-1">Nayani <span class="amp">&</span> Supun</h1>
+                    <p class="date reveal delay-2">August 12th, 2026</p>
+                    <div class="scroll-indicator">
+                        <span>Scroll</span>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Invitation (Glassmorphism) -->
+            <section class="invitation-section" id="story">
+                <div class="glass-card reveal">
+                    <span class="icon-decoration">❦</span>
+                    <p class="intro-text">Together with our families,</p>
+                    <p class="main-text">We joyfully invite you to share in our happiness as we celebrate the beginning
+                        of our new life together.</p>
+                    <p class="signature accent">Nayani & Supun</p>
+                </div>
+            </section>
+
+            <!-- Video Section: Cinematic Experience -->
+            <section class="video-section reveal">
+                <div class="video-container">
+                    <video autoplay loop muted playsinline class="cinematic-video">
+                        <source src="video.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay"></div>
+                </div>
+            </section>
+
+            <!-- Section 3: Countdown -->
+            <section class="countdown-section reveal">
+                <h2 class="section-title">The Anticipation</h2>
+                <div class="countdown-grid" id="countdown">
+                    <!-- JS will inject values here -->
+                </div>
+            </section>
+
+            <!-- Section 4: Timeline (Vertical Journey) -->
+            <section class="timeline-section" id="events">
+                <div class="section-bg parallax" style="background-image: url('backgound.png');"></div>
+                <h2 class="section-title reveal">The Order of Events</h2>
+                <div class="timeline">
+                    <div class="line-connector"></div>
+
+                    <div class="timeline-item reveal">
+                        <div class="dot"></div>
+                        <div class="time-stamp">09:30 AM</div>
+                        <div class="card-content">
+                            <h3>Poruwa Ceremony</h3>
+                            <p class="location">The Kingsbury, Balmoral Hall</p>
+                            <p class="desc">Traditional rites and blessing of the couple.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item reveal">
+                        <div class="dot"></div>
+                        <div class="time-stamp">06:30 PM</div>
+                        <div class="card-content">
+                            <h3>Cocktail Reception</h3>
+                            <p class="location">The Kingsbury, The Lawn</p>
+                            <p class="desc">Join us for sunset drinks and canapés.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item reveal">
+                        <div class="dot"></div>
+                        <div class="time-stamp">08:00 PM</div>
+                        <div class="card-content">
+                            <h3>Dinner & Dancing</h3>
+                            <p class="location">The Kingsbury, Grand Ballroom</p>
+                            <p class="desc">A night of celebration, feast, and music.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Venue (Split Layout) -->
+            <section class="venue-section reveal">
+                <div class="venue-image">
+                    <img src="imgi_15_PRA04700.jpg" alt="The Kingsbury Hotel">
+                </div>
+                <div class="venue-info">
+                    <h2 class="section-title">The Venue</h2>
+                    <h3>The Kingsbury Hotel</h3>
+                    <p>48 Janadhipathi Mawatha, Colombo 00100</p>
+                    <p class="venue-desc">Located in the heart of Colombo with breathtaking views of the ocean.</p>
+                    <a href="https://goo.gl/maps/YOUR_LINK_HERE" target="_blank" class="btn-outline">
+                        <span class="material-icons-outlined">place</span> View Map
+                    </a>
+                </div>
+            </section>
+
+            <!-- Section 6: Gallery (Masonry) -->
+            <section class="gallery-section" id="gallery">
+                <h2 class="section-title reveal">Captured Moments</h2>
+                <div class="gallery-masonry">
+                    <div class="masonry-item reveal"><img src="imgi_2_3Z6A4099.jpg" loading="lazy" alt="Couple"></div>
+                    <div class="masonry-item reveal"><img src="imgi_4_PRA06549.jpg" loading="lazy" alt="Couple"></div>
+                    <div class="masonry-item reveal"><img src="imgi_5_PRA06577.jpg" loading="lazy" alt="Couple"></div>
+                    <div class="masonry-item reveal"><img src="imgi_6_PRA06616.jpg" loading="lazy" alt="Couple"></div>
+                    <div class="masonry-item reveal"><img src="imgi_7_PRA06663.jpg" loading="lazy" alt="Couple"></div>
+                    <div class="masonry-item reveal"><img src="imgi_8_PRA06743.jpg" loading="lazy" alt="Couple"></div>
+                </div>
+            </section>
+
+            <!-- Section 7: RSVP -->
+            <section class="rsvp-section" id="rsvp">
+                <div class="section-bg parallax" style="background-image: url('backgound.png');"></div>
+                <div class="rsvp-container reveal">
+                    <h2 class="section-title">R.S.V.P</h2>
+                    <p>Kindly respond by July 1st, 2026</p>
+
+                    <form id="rsvpForm" class="elegant-form">
+                        <div class="input-group">
+                            <input type="text" id="name" name="name" required placeholder=" " autocomplete="off">
+                            <label for="name">Full Name</label>
+                        </div>
+
+                        <div class="row" id="seatsContainer">
+                            <div class="input-group">
+                                <select id="seats" name="seats" required>
+                                    <option value="" disabled selected>Number of Guests</option>
+                                    <option value="1">1 Guest</option>
+                                    <option value="2">2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="radio-group-styled">
+                            <p>Will you be attending?</p>
+                            <div class="options">
+                                <label class="radio-btn">
+                                    <input type="radio" name="attending" value="yes" checked>
+                                    <span>Joyfully Accepts</span>
+                                </label>
+                                <label class="radio-btn">
+                                    <input type="radio" name="attending" value="no">
+                                    <span>Regretfully Declines</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-gold">Confirm Attendance</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <h2>N & S</h2>
+                <p>12 . 08 . 2026</p>
+                <p class="copyright">Designed with love.</p>
+                <p class="developer-credit">Powered by <span class="novexis">Novexis studio</span></p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

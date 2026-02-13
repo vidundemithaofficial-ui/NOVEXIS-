@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Wedding Invitation</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Cormorant+Garamond:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f6f2ed;
+    overflow:hidden;
+    font-family:'Cormorant Garamond', serif;
+}
+
+/* Ambient Dust */
+canvas {
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:0;
+}
+
+/* Scene Wrapper */
+.wrapper {
+    position:relative;
+    perspective:2000px;
+    z-index:2;
+}
+
+/* Envelope */
+.envelope {
+    width:500px;
+    height:300px;
+    position:relative;
+}
+
+/* Envelope Body */
+.body {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:100%;
+    background:linear-gradient(145deg,#e8dfd5,#d9cec2);
+    box-shadow:0 30px 60px rgba(0,0,0,0.2);
+    border-radius:4px;
+}
+
+/* Flap */
+.flap {
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:linear-gradient(145deg,#d8cfc5,#c9beb2);
+    transform-origin:top;
+    clip-path:polygon(0 0,100% 0,50% 70%);
+    box-shadow:inset 0 -5px 10px rgba(0,0,0,0.1);
+}
+
+/* Wax Seal */
+.seal {
+    width:80px;
+    height:80px;
+    background:radial-gradient(circle at 30% 30%,#9b2c2c,#5c1212);
+    border-radius:50%;
+    position:absolute;
+    top:110px;
+    left:210px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Great Vibes',cursive;
+    font-size:36px;
+    color:#f6e4d7;
+    box-shadow:
+        inset 0 5px 10px rgba(255,255,255,0.2),
+        0 10px 25px rgba(0,0,0,0.4);
+    cursor:pointer;
+    z-index:5;
+}
+
+/* Invitation Card */
+.card {
+    width:460px;
+    height:260px;
+    background:#fffaf4;
+    position:absolute;
+    top:20px;
+    left:20px;
+    padding:50px;
+    text-align:center;
+    transform:translateY(80px);
+    opacity:0;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+}
+
+.card h1 {
+    font-family:'Playfair Display',serif;
+    font-size:42px;
+    margin-bottom:20px;
+    color:#3e2c23;
+}
+
+.card p {
+    font-size:20px;
+    color:#6d5c53;
+}
+
+/* Gold Foil Shine */
+.card::after {
+    content:'';
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:50%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,215,0,0.3),transparent);
+    transform:skewX(-20deg);
+}
+
+/* Main Content */
+.main-site {
+    position:fixed;
+    inset:0;
+    background:#ffffff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    pointer-events:none;
+    font-family:'Playfair Display',serif;
+    font-size:48px;
+    letter-spacing:2px;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="dust"></canvas>
+
+<div class="wrapper">
+    <div class="envelope">
+        <div class="flap"></div>
+        <div class="body"></div>
+        <div class="seal">A</div>
+    </div>
+
+    <div class="card">
+        <h1>You're Invited</h1>
+        <p>To celebrate the wedding of<br><strong>Amara & Daniel</strong><br>June 14, 2026</p>
+    </div>
+</div>
+
+<div class="main-site">
+    Welcome to Our Wedding
+</div>
+
+<!-- Soft Ambient Music -->
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8b0b42e6f7.mp3?filename=romantic-ambient-piano-110624.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const seal = document.querySelector('.seal');
+const flap = document.querySelector('.flap');
+const card = document.querySelector('.card');
+const main = document.querySelector('.main-site');
+const music = document.getElementById('music');
+
+/* GSAP Timeline */
+seal.addEventListener('click', () => {
+
+    music.volume = 0.4;
+    music.play();
+
+    const tl = gsap.timeline();
+
+    tl.to(".seal", {
+        scale:0,
+        duration:0.4,
+        ease:"power2.in"
+    })
+
+    .to(".flap", {
+        rotateX:-180,
+        duration:1.6,
+        ease:"power3.inOut"
+    }, "-=0.2")
+
+    .to(".card", {
+        y:-40,
+        opacity:1,
+        duration:1.6,
+        ease:"power3.out"
+    }, "-=1")
+
+    .to(".card::after", {}, 0)
+
+    .to(".wrapper", {
+        scale:0.9,
+        opacity:0,
+        duration:1.5,
+        delay:2
+    })
+
+    .to(".main-site", {
+        opacity:1,
+        pointerEvents:"all",
+        duration:1.5
+    }, "-=1.5");
+});
+
+
+/* Floating Dust Particles */
+const canvas = document.getElementById('dust');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for(let i=0;i<80;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2,
+        d:Math.random()*0.5
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="rgba(255,255,255,0.5)";
+    ctx.beginPath();
+    for(let i=0;i<particles.length;i++){
+        let p=particles[i];
+        ctx.moveTo(p.x,p.y);
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2,true);
+    }
+    ctx.fill();
+    update();
+}
+
+function update(){
+    for(let i=0;i<particles.length;i++){
+        let p=particles[i];
+        p.y-=p.d;
+        if(p.y<0){
+            p.y=canvas.height;
+            p.x=Math.random()*canvas.width;
+        }
+    }
+}
+
+setInterval(draw,33);
+</script>
+
+</body>
+</html>
+
+
