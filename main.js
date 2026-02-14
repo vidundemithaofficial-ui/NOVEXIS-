@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(form);
 
-            fetch('https://sheetdb.io/api/v1/5u9yrdv1rr0ux', {
+            fetch('https://sheetdb.io/api/v1/jwgdtoi3tmkq0', {
                 method: 'POST',
                 body: formData,
             })
@@ -278,4 +278,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         });
     }
+
 });
